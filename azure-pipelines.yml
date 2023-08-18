@@ -43,11 +43,16 @@ stages:
         arguments: 
           --target test
     - task: Docker@2
+      displayName: Push Docker image
+      condition: ${{ parameters.buildDockerImage }}
       inputs:
         containerRegistry: 'DockerHub'
         repository: 'mikeytaylor/azurepipelinespoc'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
+        tags: |
+          $(tag)
+
     - task: DotNetCoreCLI@2
       displayName: Build
       inputs:
