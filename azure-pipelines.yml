@@ -10,6 +10,7 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
+  buildDockerImage: false
 
 stages:
 - stage: Build
@@ -21,6 +22,7 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - task: Docker@2
+      condition: buildDockerImage
       displayName: Build an image
       inputs:
         command: build
