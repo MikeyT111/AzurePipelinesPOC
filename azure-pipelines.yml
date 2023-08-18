@@ -33,3 +33,9 @@ stages:
         command: build
         projects: '**/*.csproj'
         arguments: '--configuration release' # Update this to match your need
+    - task: DotNetCoreCLI@2
+      displayName: Run Unit Tests
+      inputs:
+        command: test
+        projects: '**/*.csproj'
+        arguments: '--configuration release' # Update this to match your need
