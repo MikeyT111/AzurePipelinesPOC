@@ -27,7 +27,7 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - task: Docker@2
-      condition: ${{ parameters.image }}
+      condition: ${{ parameters.buildDockerImage }}
       displayName: Build an image
       inputs:
         command: build
@@ -36,7 +36,7 @@ stages:
           $(tag)
     - task: Docker@2
       displayName: Test Docker Image
-      condition: ${{ parameters.image }}
+      condition: ${{ parameters.buildDockerImage }}
       inputs:
         command: 'build'
         Dockerfile: '**/Dockerfile'
