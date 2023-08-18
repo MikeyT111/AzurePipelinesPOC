@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Constructs;
 using HashiCorp.Cdktf;
 using HashiCorp.Cdktf.Providers.Azurerm;
+using azurerm.Provider;
+using azurerm.VirtualNetwork;
 
 
 namespace MyCompany.MyApp

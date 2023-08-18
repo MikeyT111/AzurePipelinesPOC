@@ -17,4 +17,8 @@
     </PackageReference>
   </ItemGroup>
 
+   <ItemGroup>
+    <ProjectReference Include=".gen\azurerm\azurerm.csproj" />
+  </ItemGroup>
+
 </Project>
