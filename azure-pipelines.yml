@@ -8,9 +8,14 @@ trigger:
 resources:
 - repo: self
 
+parameters:  
+  - name: buildDockerImage
+    displayName: Build Docker Image
+    type: boolean
+    default: true
+
 variables:
   tag: '$(Build.BuildId)'
-  buildDockerImage: false
 
 stages:
 - stage: Build
@@ -22,7 +27,7 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - task: Docker@2
-      condition: $(buildDockerImage)
+      condition: ${{ parameters.image }}
       displayName: Build an image
       inputs:
         command: build
@@ -31,6 +36,7 @@ stages:
           $(tag)
     - task: Docker@2
       displayName: Test Docker Image
+      condition: ${{ parameters.image }}
       inputs:
         command: 'build'
         Dockerfile: '**/Dockerfile'
