@@ -10,12 +10,23 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 COPY . .
 
 WORKDIR "/src/."
+
 RUN dotnet restore "./AzurePipelinesPOC.csproj"
 RUN dotnet build "AzurePipelinesPOC.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "AzurePipelinesPOC.csproj" -c Release -o /app/publish
 
+
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS test
+
+COPY . .
+
+WORKDIR "/tests/."
+
+RUN dotnet test "./AzurePipelinesPOCTests.csproj" --logger:trx
+
 FROM base AS final
+
 WORKDIR /app
 COPY --from=publish /app/publish .
 
