@@ -22,7 +22,7 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - task: Docker@2
-      condition: buildDockerImage
+      condition: $(buildDockerImage)
       displayName: Build an image
       inputs:
         command: build
