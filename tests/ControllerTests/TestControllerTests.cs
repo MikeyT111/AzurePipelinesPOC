@@ -17,6 +17,6 @@ public class TestControllerTests
     {
         var response = _testController.Get();
 
-        Assert.That(response, Is.EqualTo("Success!!"));
+        Assert.That(response, Is.EqualTo("Success!"));
     }
 }
