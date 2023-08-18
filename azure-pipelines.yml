@@ -27,6 +27,13 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
+    - task: Docker@2
+      displayName: Test Docker Image
+      inputs:
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+        arguments: 
+          --target test
     - task: DotNetCoreCLI@2
       displayName: Build
       inputs:
@@ -39,3 +46,5 @@ stages:
         command: test
         projects: '**/*.csproj'
         arguments: '--configuration release' # Update this to match your need
+        
+
