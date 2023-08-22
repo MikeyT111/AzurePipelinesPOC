@@ -12,3 +12,7 @@ The following parameters need to be set:
     ClientId = "",
     ClientSecret = "",
     TenantId = "",
+
+# Docker build commands
+
+docker build -t infra  --target setup -f Dockerfile.deploy . 
