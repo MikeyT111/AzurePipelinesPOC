@@ -6,19 +6,25 @@ using HashiCorp.Cdktf.Providers.Azurerm;
 using azurerm.Provider;
 using azurerm.VirtualNetwork;
 
-
 namespace MyCompany.MyApp
 {
     class MainStack : TerraformStack
     {
         public MainStack(Construct scope, string id) : base(scope, id)
         {
+            var subscriptionId = Environment.GetEnvironmentVariable("SubscriptionId");
+            var clientId = Environment.GetEnvironmentVariable("ClientId");
+            var clientSecret = Environment.GetEnvironmentVariable("ClientSecret");
+            var tenantId = Environment.GetEnvironmentVariable("TenantId");
+            
+            System.Console.WriteLine($"SubscriptionId: '{subscriptionId}'");
+
              new AzurermProvider(this, "AzureRm", new AzurermProviderConfig {
                 Features = new AzurermProviderFeatures(),
-                SubscriptionId = "",
-                ClientId = "",
-                ClientSecret = "",
-                TenantId = "",
+                SubscriptionId = subscriptionId,
+                ClientId = clientId,
+                ClientSecret = clientSecret,
+                TenantId = tenantId,
                 SkipProviderRegistration = true
             });
 

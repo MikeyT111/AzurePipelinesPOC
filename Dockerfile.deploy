@@ -1,0 +1,25 @@
+
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+
+WORKDIR /infra
+
+COPY . .
+
+WORKDIR "/terraform/."
+
+FROM linuxbrew/brew AS setup
+
+WORKDIR "/infra/."
+
+COPY . .
+
+WORKDIR "/infra/terraform/."
+
+RUN brew tap hashicorp/tap
+
+RUN brew install hashicorp/tap/terraform
+
+RUN brew install node
+RUN brew install cdktf
+
+RUN cdktf get

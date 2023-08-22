@@ -1,0 +1,18 @@
+FROM infra as setup
+
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+
+COPY --from=setup  "/infra/terraform/." "/local/."
+
+WORKDIR "/local/."
+
+WORKDIR "/local/.gen/azurerm"
+
+RUN dotnet add package HashiCorp.Cdktf --version 0.18.0-pre.43
+
+WORKDIR "/local/."
+
+RUN dotnet restore "./MyTerraformStack.csproj"
+RUN dotnet build "MyTerraformStack.csproj" -c Release -o /app/build
+
+CMD ["sleep", "10000"]
