@@ -15,4 +15,17 @@ The following parameters need to be set:
 
 # Docker build commands
 
-docker build -t infra  --target setup -f Dockerfile.deploy . 
+## Builds the terraform base image so that we can use the CDK later. 
+docker build -t infrasetup --target setup -f Dockerfile.infrasetupU . 
+
+## Builds the terraform CDK project.
+docker build -t infrabuild --target build -f Dockerfile.infrabuild .
+
+## build the CDK image to run that will deploy it to the account
+docker build -t infradeploy --target deploy -f Dockerfile.infradeploy .
+
+
+docker build -t infradeploy -f Dockerfile.infradeploy .
+
+## Run the CDK image
+docker run infradeploy

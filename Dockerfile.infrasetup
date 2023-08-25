@@ -22,4 +22,8 @@ RUN brew install hashicorp/tap/terraform
 RUN brew install node
 RUN brew install cdktf
 
+RUN brew install dotnet
+
 RUN cdktf get
+
+CMD ["sleep", "40000"]

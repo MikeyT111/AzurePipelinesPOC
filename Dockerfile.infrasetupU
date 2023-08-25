@@ -1,0 +1,36 @@
+
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+
+WORKDIR /infra
+
+COPY . .
+
+WORKDIR "/terraform/."
+
+FROM homebrew/brew AS setup
+
+WORKDIR "/infra/."
+
+COPY . .
+
+WORKDIR "/infra/terraform/."
+
+RUN sudo chown -R `whoami` /infra
+RUN brew upgrade
+RUN brew install dotnet
+RUN brew install dotnet
+
+RUN brew upgrade
+
+RUN brew tap hashicorp/tap
+
+RUN brew install hashicorp/tap/terraform
+
+RUN brew install node
+RUN brew install cdktf
+
+RUN cdktf get
+
+#CMD ["sleep", "40000"]
+
+# /home/linuxbrew/.linuxbrew/bin

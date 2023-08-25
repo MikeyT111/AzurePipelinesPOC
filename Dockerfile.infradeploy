@@ -1,0 +1,15 @@
+
+FROM infrabuild as build
+
+FROM infrasetup as setup
+
+COPY --from=build  "/local/." "/deploy/."
+
+WORKDIR "/deploy/."
+
+RUN sudo chown -R `whoami` /deploy
+RUN sudo chown -R `whoami` /infra
+
+# CMD ["sleep", "30000"]
+
+CMD ["cdktf", "deploy"]

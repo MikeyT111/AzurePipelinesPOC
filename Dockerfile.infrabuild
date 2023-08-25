@@ -1,0 +1,23 @@
+FROM infrasetup as setup
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+
+COPY --from=setup  "/infra/terraform/." "/local/."
+
+WORKDIR "/local/."
+
+WORKDIR "/local/.gen/azurerm"
+
+RUN dotnet add package HashiCorp.Cdktf --version 0.18.0-pre.43
+
+WORKDIR "/local/."
+
+ENV SubscriptionId="69976339-d9c1-4dbf-a7d6-c6167ccacee8"
+ENV ClientId="17f086d4-a107-42c9-bc9c-9e7b2b466702"
+ENV ClientSecret="jMW8Q~y6683wGthtgDh5zQoAckGqA4eh-kiPQc.A"
+ENV TenantId="88480e98-313b-42e5-9421-4ce551cb3c84"
+
+RUN dotnet restore "./MyTerraformStack.csproj"
+RUN dotnet build "MyTerraformStack.csproj" -c Release -o /app/build
+
+#CMD ["sleep", "10000"]
