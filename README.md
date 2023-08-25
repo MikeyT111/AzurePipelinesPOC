@@ -16,7 +16,11 @@ The following parameters need to be set:
 # Docker build commands
 
 ## Builds the terraform base image so that we can use the CDK later. 
-docker build -t infrasetup --target setup -f Dockerfile.infrasetupU . 
+docker build -t infrasetup --target setup -f Dockerfile.infrasetup . 
+
+## Builds the baseimage with a different version of the BASE Image.
+docker build -t infrasetup --target setup -f Dockerfile.infrasetupU .  
+
 
 ## Builds the terraform CDK project.
 docker build -t infrabuild --target build -f Dockerfile.infrabuild .
